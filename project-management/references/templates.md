@@ -78,11 +78,11 @@ No front matter; ≤12 lines, ≤200 chars each, ≤1,800 B. Line 1 = resume not
 | `routines.md` | "Startup additions", "Close-out additions", "Project commands worth knowing" | running a routine |
 | plan/design files (`plan-<task>.md`, `<task>-design.md`, audit findings) | approved plans/designs until work merges | working that task |
 
-Editing rules: one self-contained bullet per entry (grep hit shows it whole); absolute dates; no secrets; delete superseded text (git keeps history); no project facts copied from a skill. Owner preferences aren't copied per project (`operating-rules`); a project-only preference file has front matter (`name`, `description`, `metadata.type: feedback|user`) + **Why:** / **How to apply:**.
+Editing rules: one self-contained bullet per entry (grep hit shows it whole); absolute dates; no secrets; delete superseded text (git keeps history); no project facts copied from a skill. User preferences aren't copied per project (`operating-rules`); a project-only preference file has front matter (`name`, `description`, `metadata.type: feedback|user`) + **Why:** / **How to apply:**.
 
 ## Routine additions worth copying
 
-Startup: run tests, report failures before work; `git worktree list` for leftovers; read "Pending from the last close-out audit", tell owner what's outstanding.
+Startup: run tests, report failures before work; `git worktree list` for leftovers; read "Pending from the last close-out audit", tell user what's outstanding.
 
 Close-out, in order; every failure/gap goes to `next-steps.md` ("Pending...") and `watch-outs.md` with exact failing command, never silently fixed:
 - Tests; regenerate generated docs (test catalogs, diagrams), run their `--check`.

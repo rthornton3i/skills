@@ -24,7 +24,7 @@ Docs describe code as it is now, plain language, examples that run. Doc root (us
 - Model as data: all diagrams in one model file; draw images from it with the project's tool. Never hand-edit generated images.
 - Check verifies: code references resolve, listed parameters match signatures, text fits boxes, images current.
 - Kinds: block definition, internal block (connections, typed flows), activity. Custom drawing fine if it follows notation.
-- Conventions: every block/item has code reference; attribute types as specific as code (`list[Indicator]`, not `list`); relationship kind matches code (composition = ownership, association = reference, generalization = subclassing); reuse existing stereotypes, multiplicities, operation style.
+- Conventions: every block/item has code reference; attribute types as specific as code (`list[Item]`, not `list`); relationship kind matches code (composition = ownership, association = reference, generalization = subclassing); reuse existing stereotypes, multiplicities, operation style.
 - Text overflow: widen block, then blocks to its right, then diagram width.
 - Any diagram change: edit model, run generator, run `--check`, then ONE independent read-only critic pass on changed diagram ids (relationship kinds, type accuracy, completeness, convention drift). Fix real findings, regenerate, commit. No budget for the pass = record ids as pending in project notes; never skip silently.
 - At close-out run every `--check`; list diagrams changed this session.

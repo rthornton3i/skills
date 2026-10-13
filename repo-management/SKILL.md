@@ -28,12 +28,12 @@ After every merge and at close-out; no confirmation.
 
 - **Delete**: local and remote `feature/*` (and worktree) whose tip is ancestor of `dev` (`git merge-base --is-ancestor <branch> dev`), and branches with closed PRs. Local `git branch -d` (never `-D`); remote `git push origin --delete <name>`; `git fetch --prune`; your own stashes.
 - **Keep**: `main`, `dev`/integration branch, checked-out branch, branches with commits `dev` lacks. Unmerged = list for user, never delete.
-- Remote refuses (e.g. HTTP 403): don't work around; list merged remote branches in next steps for owner; clean local.
+- Remote refuses (e.g. HTTP 403): don't work around; list merged remote branches in next steps for user; clean local.
 - Report deleted and remaining branches in one line.
 
 ## Secrets
 
-- **Never write a real key, token or password into any file**, including `.env`. Hard rule. Ask user to paste it themselves (`notepad .env`); verify presence/format without echoing (non-empty, length, at most first few characters).
+- **Never write a real key, token or password into any file**, including `.env`. Hard rule. Ask user to enter it themselves; verify presence/format without echoing (non-empty, length, at most first few characters).
 - Real values only in gitignored `.env` or platform secret store. `.env.example` = names only. Code reads env.
 - User saved real keys in a tracked template: `mv` it to `.env` (never display), recreate template with empty placeholders, confirm `git status` shows template unchanged before commit.
 - Ever committed or pushed = compromised: tell user to rotate. History rewrite + force-push is a separate explicit user decision; matters more for public repos.

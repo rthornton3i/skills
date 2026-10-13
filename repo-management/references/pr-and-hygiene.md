@@ -22,7 +22,7 @@ After dependency changes (`pyproject.toml`, `requirements.txt`, `package.json`) 
 
 ## Hygiene
 
-- Untracked: `.env`, virtual envs, build output, caches (`__pycache__/`), package metadata (`*.egg-info`), machine files (`*.lnk`), personal editor settings (`.vscode/`).
+- Untracked: `.env`, virtual envs, build output, caches (`__pycache__/`), package metadata (`*.egg-info`), machine-specific files, personal editor settings (`.vscode/`).
 - Tracked file holding one person's preference: untrack, gitignore, keep local copy.
 - Branch model, setup steps or credential handling change = update README/project skill same change.
 - Commit on feature branches as work passes gates; never on `dev`/`main`. Prefer new commits over amend. Never skip hooks. No force-push, hard reset or branch deletion without explicit request.

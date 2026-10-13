@@ -29,9 +29,9 @@ Match surrounding code: comment density, names, idiom. Project skill/notes win o
 - After rename search every spelling (Pascal, camel, snake, UPPER_SNAKE) in docstrings, JSON, docs, figures; follow `documentation`. Prefer project rename script (dry run, then apply).
 
 ## Tests
-- Behavior change needs a test failing without it. Re-record pinned baselines only with project recorder script.
+- Behavior change needs a test failing without it. Re-record baselines only with the project's recorder script.
 - Add/rename/remove test = update generated test catalog (`documentation`).
-- Cheap runs: implementer runs touched files' tests plus pin tests, quiet runner, reads last ~15 lines or failures. `slow` tests run once per task by review critic. Never paste full test output.
+- Cheap runs: implementer runs touched files' tests plus baseline tests, quiet runner, reads last ~15 lines or failures. `slow` tests run once per task by review critic. Never paste full test output.
 
 ## Editing hygiene
 - Read file before editing. Files may be CRLF: scripted edits read bytes, keep original line endings.

@@ -1,6 +1,6 @@
 ---
 name: operating-rules
-description: Owner's standing preferences, cross-project decisions and known traps for every repository: explaining cost, real vs sample data, mandatory critic review, small changes, token efficiency, approvals, branch rules, where notes live. Use at start of work, before reviewing/closing work, or when unsure how the owner wants something done.
+description: User's standing preferences, cross-project decisions and known traps for every repository: explaining cost, real vs sample data, mandatory critic review, small changes, token efficiency, approvals, branch rules, where notes live. Use at start of work, before reviewing/closing work, or when unsure how the user wants something done.
 ---
 
 # Operating rules (all projects)
@@ -28,23 +28,23 @@ Skills name abilities, not tools. At session start, check which exist in this en
 
 ## Rules
 
-- **Owner profile.** Fill in per user: platform/shell, experience level, how they like updates (length, where read). Match explanations to it.
+- **User profile.** Fill in per user: platform/shell, experience level, how they like updates (length, where read). Match explanations to it.
 - **Top rule: token efficiency without losing quality.** Pay for critics and reviews, not repeated context: scoped briefs, no re-reading unchanged files, one critic run per stage, capped reports. Conflict = keep the check, cut the re-reading.
 - **Record first.** Set task status in the task list before working (`agent-workflow`).
-- **Independent review mandatory.** Self-check is not review. Every behavior/data change passes a review critic before `done`; no skipped stages. Only no-behavior work (doc wording, bookkeeping) may take a logged waiver. Skip critics on mechanical work only with owner's word; ask again next time. No retrospective reviews of old work.
+- **Independent review mandatory.** Self-check is not review. Every behavior/data change passes a review critic before `done`; no skipped stages. Only no-behavior work (doc wording, bookkeeping) may take a logged waiver. Skip critics on mechanical work only with user's word; ask again next time. No retrospective reviews of old work.
 - **Classify complexity per task.** High = full pipeline; simple = lean path; unsure = high.
 - **Small, conservative changes**; follow agreed process; narrow agent briefs.
-- **Plain language about cost.** Analogy tied to owner's usage numbers; define each term once; short glossary; end with practical implication.
+- **Plain language about cost.** Analogy tied to user's usage numbers; define each term once; short glossary; end with practical implication.
 - **Real vs sample.** Never present invented content as real. Default real data; label samples visibly. Back claims about code by running it.
-- **Approvals.** Owner approves only pushes to `dev`/`main` and PRs into them. Committing and pushing feature branches: no confirmation. Force-push, history rewrite, deleting unmerged work: explicit request (`repo-management`).
+- **Approvals.** User approves only pushes to `dev`/`main` and PRs into them. Committing and pushing feature branches: no confirmation. Force-push, history rewrite, deleting unmerged work: explicit request (`repo-management`).
 - **Feature branches only**; never commit on `dev`/`main`.
 - **No planning words in skills/code.** Task ids, statuses, `.agent/state` paths stay in state notes.
 - **Docs are part of the task.**
 - **Lean notes.** Memory = index + resume note; rest in repo `.agent/state/`, one self-contained bullet per entry, superseded text deleted (`project-management`).
 - **Cost by session length, not agent caps:** fresh sessions at natural breaks (after a task, ~35-50% context).
 - **One thread per task.** Task concluded = resolve thread; new work gets a new, accurately named thread.
-- **Sync checkout to `dev` after merges:** `git fetch`, checkout `dev`, `git pull --ff-only`, reinstall, test. Never discard uncommitted work: stash (uniquely tagged), tell owner.
-- **Questions as structured prompts** (see Capability check), 2-4 options, recommended first, never numbered prose. Each has "Get more info first"; built-in "Other" covers other topics. "Get more info" chosen = research, re-ask same card; don't decide for owner.
+- **Sync checkout to `dev` after merges:** `git fetch`, checkout `dev`, `git pull --ff-only`, reinstall, test. Never discard uncommitted work: stash (uniquely tagged), tell user.
+- **Questions as structured prompts** (see Capability check), 2-4 options, recommended first, never numbered prose. Each has "Get more info first"; built-in "Other" covers other topics. "Get more info" chosen = research, re-ask same card; don't decide for user.
 - **User-level files may not be in git.** Before changing `~/.agent/`, copy to `~/.agent/retired/backups/<date>-<topic>/`; edit with file-edit tools (no scripts); read back.
 
 ## Read when needed
@@ -54,4 +54,4 @@ Skills name abilities, not tools. At session start, check which exist in this en
 
 ## Keeping this true
 
-Add a rule only if owner states it as general or it held in more than one project; project-only facts go in that project's `.agent/state/`. Keep each reason; delete what a newer entry supersedes. No project names, task ids or repo paths here.
+Add a rule only if user states it as general or it held in more than one project; project-only facts go in that project's `.agent/state/`. Keep each reason; delete what a newer entry supersedes. No project names, task ids or repo paths here.

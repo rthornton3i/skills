@@ -85,10 +85,10 @@ Cache reads dominate cost; orchestrator is the largest share.
 - Agent reports ~100 words max; bullets with file:line for findings.
 - Fewer, larger launches. No status-only turns. Don't paste agent reports to user.
 - One implementer at a time by default; parallel only for disjoint files and docs, and user wants speed.
-- Plans name exact files, functions, reusable helpers, pins/fixtures/docs touched. Agent should not need to explore.
-- Plan flags data/rule changes that move pinned results; asks user before implementation.
+- Plans name exact files, functions, reusable helpers, fixtures, baselines, docs touched. Agent should not need to explore.
+- Plan flags data/rule changes that move baseline results; asks user before implementation.
 - Implementer: one full read per touched file, targeted edits and tests, one full fast-suite run and one docs build at end.
-- Pin re-records and generated artifacts via recorder script, never by hand.
+- Re-record baselines and regenerate artifacts with the project's script, never by hand.
 
 ## Bug reduction
 
