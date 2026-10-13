@@ -34,7 +34,7 @@ Skills name abilities, not tools. At session start, check which exist in this en
 - **Independent review mandatory.** Self-check is not review. Every behavior/data change passes a review critic before `done`; no skipped stages. Only no-behavior work (doc wording, bookkeeping) may take a logged waiver. Skip critics on mechanical work only with user's word; ask again next time. No retrospective reviews of old work.
 - **Classify complexity per task.** High = full pipeline; simple = lean path; unsure = high.
 - **Small, conservative changes**; follow agreed process; narrow agent briefs.
-- **Plain language about cost.** Analogy tied to user's usage numbers; define each term once; short glossary; end with practical implication.
+- **Plain language about cost.** Analogy tied to user's own numbers; define each term once; short glossary; end with practical implication.
 - **Real vs sample.** Never present invented content as real. Default real data; label samples visibly. Back claims about code by running it.
 - **Approvals.** User approves only pushes to `dev`/`main` and PRs into them. Committing and pushing feature branches: no confirmation. Force-push, history rewrite, deleting unmerged work: explicit request (`repo-management`).
 - **Feature branches only**; never commit on `dev`/`main`.

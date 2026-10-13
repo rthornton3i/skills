@@ -8,10 +8,9 @@ Routine = named checklist. User says "run startup routine"; do steps in order, o
 2. **Init check.** Manifest by hand: tools installed, env keys set (by name, never print values), skills and venv exist, memory location right. Manifest `agents.global` roles available; missing = say so, no weaker substitute. Fix only trivial and safe.
 3. **Repo and review state.** Branch, uncommitted files, ahead/behind, `gh pr list`, unanswered PR comments (`gh pr view <n> --comments`).
 4. **Next steps.** `.agent/state/next-steps.md` "Next step", loose ends in `watch-outs.md`. List open tasks and decisions waiting on user.
-5. **Usage check.** usage display against thresholds in memory.
-6. **Project additions** ("Startup additions").
-7. **Name session.** `date '+%Y-%m-%d %H:%M'`; set session title `YYYY-MM-DD HH:MM - <topic>` if the tool supports titles. No task yet = project name.
-8. **Resume statement.** Then wait for direction unless given.
+5. **Project additions** ("Startup additions").
+6. **Name session.** `date '+%Y-%m-%d %H:%M'`; set session title `YYYY-MM-DD HH:MM - <topic>` if the tool supports titles. No task yet = project name.
+7. **Resume statement.** Then wait for direction unless given.
 
 ## Close-out
 
@@ -34,6 +33,5 @@ Routine = named checklist. User says "run startup routine"; do steps in order, o
 | PR feedback | List open PRs and unanswered comments; fix or reply; summarize changes and what needs user |
 | Report bug | Add bug task; run through pipeline like any behavior change |
 | Open PR | `repo-management` |
-| Usage check | usage display vs thresholds; report, checkpoint if reached |
 
 New routine: generic steps here, project-specific in `.agent/state/routines.md`. One screen; link skills for detail.

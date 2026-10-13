@@ -20,7 +20,6 @@ Portable: copy to the tool's user-level skills/instructions folder to make globa
 - Questions: structured prompts if the environment has them, else short option list (check `operating-rules` capability table), 2-4 options, recommended first, each with "Get more info first"; built-in "Other" covers other topics. Never numbered prose lists.
 - **Context small.** Compact context if supported (else fresh session with resume note) after task closes, long report absorbed, or ~40% context. Never mid-step with agent result pending. Once per break. Don't announce.
 - **Name tasks by description** (1-3 words: "login bug"), not number. Ids only when organizing many tasks.
-- Usage limits: mention once, then at 20, 40, 60, 80, 90, 95, 99%.
 
 ## Caveman levels
 
