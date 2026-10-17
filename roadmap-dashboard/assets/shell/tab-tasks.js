@@ -1,14 +1,14 @@
 /* Tasks tab: the orchestrator's own current task list (tasks.json), not the Phase/Feature/Story plan.
-   Updated only when the owner asks (`roadmap.py tasks-set` / `tasks-archive`), never by refresh. The
+   Updated only when the user asks (`roadmap.py tasks-set` / `tasks-archive`), never by refresh. The
    archive list (tasks-index.json) is eager and small; each archived list's full items load only when
    its row is opened. The "Refresh tasks" button refetches only tasks.json and tasks-index.json and
    re-renders in place (ctx.load falls back to the file name itself for names tabs.json does not declare
    under `lazy`, matching the tab's `lazyGlob`).
-   "My to-do" (top of the tab) is the owner's own list, live in the artifact database (`db` capability,
+   "My to-do" (top of the tab) is the user's own list, live in the artifact database (`db` capability,
    collection `ownerTodos`, one document per item: kind task|question, title, detail, source, created, order,
    status open|answered|done|closed, answer, answeredAt, doneAt). `claude.use("db")` is resolved once and the
    collection is subscribed once per tab mount (the old subscription is dropped on remount). Tasks have a
-   Done tick; questions have an answer box and a Save answer button; the owner can add a task. With no db
+   Done tick; questions have an answer box and a Save answer button; the user can add a task. With no db
    (a local `serve`, or not granted) the section shows one note and the rest of the tab is unaffected.
    Claude adds items and reads answers with ArtifactData on the same collection. */
 (function () {
@@ -72,7 +72,7 @@
 
   var NO_DB = 'My to-do needs the live dashboard on claude.ai (the database is not available in this view).';
   var COLL = 'ownerTodos';
-  var ASK_TODO = 'The owner updated My to-do in the dashboard (answers or done items). Read collection ownerTodos with ArtifactData, act on answered and done items, then mark them closed.';
+  var ASK_TODO = 'The user updated My to-do in the dashboard (answers or done items). Read collection ownerTodos with ArtifactData, act on answered and done items, then mark them closed.';
   var dbP = null;
 
   // resolves the db namespace or null; memoized, never throws

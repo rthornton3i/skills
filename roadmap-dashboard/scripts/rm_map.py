@@ -192,7 +192,7 @@ def scan_agents(ctx):
 
 def load_code_config(project):
     """Optional per-project declaration of where the primary code lives: roadmap/map-groups.json,
-    {"code": {"root": "packages/ttPy", "packages": [{"name": "backtest", "desc": "..."}, ...]}}.
+    {"code": {"root": "packages/<project>", "packages": [{"name": "backtest", "desc": "..."}, ...]}}.
     `root` is required (repo-relative); `packages` entries are optional per-package descriptions,
     matched by folder name. Nothing is shown if this isn't declared -- there's no generic way to
     guess a project's primary source directory."""

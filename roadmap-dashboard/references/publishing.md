@@ -6,7 +6,7 @@ Published files (flat names, nothing else): `index.html` (small stub) plus `styl
 The header shows `Updated <time>` (the newest data `generated` value), a `Reload` button (refetches every data file with no-cache and re-mounts the active tab; free, no publish) and an `Ask Claude to update` button. That button uses the `comments` capability (`sendToClaude`); it is enabled only when `canSendToClaude()` is `available`, meaning a Claude session is watching the artifact, and is otherwise disabled with the reason shown. The publish call declares `capabilities: {"comments": {}}`; consent is asked once at first use, and the artifact is then organization-internal, not publicly shareable.
 
 ## Publish policy
-`plan.json` is updated locally at EVERY status change (`RM set-status`, about 100 tokens). The published page is republished only (i) when the owner asks, in chat or through the "Ask Claude to update" button, and (ii) at a wrap-up: a feature finished, a checkpoint (commit or push), or before a session ends. Not on every stage transition.
+`plan.json` is updated locally at EVERY status change (`RM set-status`, about 100 tokens). The published page is republished only (i) when the user asks, in chat or through the "Ask Claude to update" button, and (ii) at a wrap-up: a feature finished, a checkpoint (commit or push), or before a session ends. Not on every stage transition.
 
 ## First publish
 1. `RM refresh`, then `RM publish-args --all`.
@@ -24,7 +24,7 @@ The header shows `Updated <time>` (the newest data `generated` value), a `Reload
 The request arrives as an artifact comment sent to Claude. Run `RM refresh`, `RM publish-args`, ONE Artifact publish with exactly the printed arguments, `RM mark-published --url URL`, then answer in the comment thread with one line.
 
 ## If the tool refuses a data file
-If the tool refuses to replace a listed-only data file, stop and report. Never pass `overwrite_unread` without the owner's word.
+If the tool refuses to replace a listed-only data file, stop and report. Never pass `overwrite_unread` without the user's word.
 
 ## Cache
 JSON is fetched no-cache. If old JS or CSS shows after a republish, reload the page; if it persists, report it.

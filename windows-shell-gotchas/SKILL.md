@@ -13,7 +13,7 @@ Each item cost time before. Follow them and skip the rediscovery.
 - Bash `kill %1` does not stop a server started by a tool; stop it by port from the PowerShell tool: `Get-NetTCPConnection -LocalPort 8765 | Select-Object -ExpandProperty OwningProcess -Unique | ForEach-Object { Stop-Process -Id $_ -Force }`. A background command reports "completed" even when a server it launched keeps running.
 - The PowerShell tool is Windows PowerShell 5.1: no `&&`, no `?:`, use `;` and `if ($?)`.
 - Backticks inside double-quoted Bash arguments are executed as commands (a `--desc "..."` once ran `git log --graph`); use single quotes.
-- Git Bash rewrites `branch:path` arguments that look like paths (`git show origin/x:.claude/a.md` fails as "ambiguous argument"); run such git commands from the PowerShell tool.
+- Git Bash rewrites `branch:path` arguments that look like paths (`git show origin/x:.agent/a.md` fails as "ambiguous argument"); run such git commands from the PowerShell tool.
 - Git Bash's `/tmp` and Python's `/tmp` are different folders on Windows; use the session scratchpad for anything both must see.
 
 ## Line endings
@@ -25,7 +25,7 @@ Each item cost time before. Follow them and skip the rediscovery.
 - Pytest: `python -m pytest -q 2>&1 | tail -5`.
 
 ## Browsers and local servers
-- The built-in browser pane is a separate browser: it is not signed in to the user's accounts, so private claude.ai artifacts show a sign-in page. Test a page locally instead (serve it on localhost and open that URL with the preview or navigate tool) and never sign in on the user's behalf.
+- The built-in browser pane is a separate browser: it is not signed in to the user's accounts, so private published pages show a sign-in page. Test a page locally instead (serve it on localhost and open that URL with the preview or navigate tool) and never sign in on the user's behalf.
 - Screenshots can time out if the window is hidden; use page text or DOM reads (`get_page_text`, `javascript_tool`) instead.
 - A `navigate` to localhost can be denied while `preview_start` with a `url` works.
 
