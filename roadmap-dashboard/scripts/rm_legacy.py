@@ -17,11 +17,11 @@ from pathlib import Path
 import rm_data
 from rm_data import Err, rd
 
-DEFAULT_HTML = ".claude/roadmap/archive/legacy/ttpy-roadmap.html"
+LEGACY_DIR = "roadmap/archive/legacy"   # under the project agent folder (.agent, or .claude when that is what the project uses)
 STORY_KEYS = ("agent", "critic", "loop", "escalated", "obe", "completed")
 CHIP_KEYS = ("name", "initials", "model", "modelLabel", "role")
-TABS = {"title": "ttPy Roadmap",
-        "subtitle": "The agreed cleanup and upgrade plan. Click a phase to focus, or a story for details.",
+TABS = {"title": "Project Roadmap",
+        "subtitle": "Phases, features and stories. Click a phase to focus, or a story for details.",
         "tabs": [
             {"id": "plan", "title": "Plan", "script": "tab-plan.js",
              "data": {"plan": "plan.json", "tokens": "tokens.json"}, "lazy": {"archive": "plan-archive.json"}},
@@ -90,12 +90,22 @@ def norm_details(det):
             "log": det.get("log", []), "notes": det.get("notes", "")}
 
 
+def default_html(project):
+    """The single *.html in <agent folder>/roadmap/archive/legacy/; more or fewer than one needs --html."""
+    base = Path(project)
+    agent = base / ".agent" if (base / ".agent").is_dir() else base / ".claude"
+    found = sorted((agent / LEGACY_DIR).glob("*.html"))
+    if len(found) != 1:
+        raise Err(f"expected exactly one legacy page in {agent / LEGACY_DIR}, found {len(found)}; pass --html")
+    return found[0]
+
+
 # ---------------------------------------------------------------- migrate
 def cmd_migrate(args, project):
     if args.verify:
         return verify(args, project)
     d = rd(project)
-    html = Path(args.html) if args.html else Path(project) / DEFAULT_HTML
+    html = Path(args.html) if args.html else default_html(project)
     if not html.is_absolute():
         html = Path(project) / html if not html.exists() else html.resolve()
     if not html.exists():
@@ -104,7 +114,7 @@ def cmd_migrate(args, project):
         raise Err("plan.json already exists; migrate-legacy is one-time (use --force to rebuild it)")
     data = extract(html)
 
-    plan = rm_data.empty_plan("ttPy")
+    plan = rm_data.empty_plan(Path(project).resolve().name)
     arch = rm_data.empty_archive()
     plan["phases"] = [{"id": p["id"], "name": p["name"]} for p in data["phases"]]
     plan["features"] = [{"id": f["id"], "phase": f["phase"], "name": f["name"]} for f in data["features"]]
@@ -145,7 +155,7 @@ def cmd_migrate(args, project):
 # ---------------------------------------------------------------- verify
 def verify(args, project):
     d = rd(project)
-    html = Path(args.html) if args.html else Path(project) / DEFAULT_HTML
+    html = Path(args.html) if args.html else default_html(project)
     data = extract(html)
     plan, arch = rm_data.load(project)
     bad = []
@@ -214,7 +224,7 @@ def verify(args, project):
 
 def register(sub):
     p = sub.add_parser("migrate-legacy", help="one-time migration of the old roadmap HTML (or --verify it)")
-    p.add_argument("--html", help=f"legacy page (default {DEFAULT_HTML})")
+    p.add_argument("--html", help="legacy page (default: the single *.html in <agent folder>/roadmap/archive/legacy/)")
     p.add_argument("--verify", action="store_true", help="prove the migration lost nothing")
     p.add_argument("--force", action="store_true", help="rebuild even if plan.json exists")
     p.set_defaults(func=cmd_migrate)

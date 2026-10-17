@@ -114,13 +114,15 @@
     const featOpen = f => isDoneFeature(f) ? doneOpen.has(f.id) : expanded.has(f.id);
     const archOpen = new Set();
 
-    const HIDE_KEY = 'ttpy-roadmap-hidden-v3';
+    // One-time carry-over of a viewer's saved choice from the old project-prefixed key to the neutral key.
+    const migrateStore = (nk, ok) => { if (RM.store(nk) == null) { const v = RM.store(ok); if (v != null) RM.store(nk, v); } return nk; };
+    const HIDE_KEY = migrateStore('roadmap-hidden-v3', 'ttpy-roadmap-hidden-v3');
     const hiddenIds = new Set(RM.store(HIDE_KEY) || []);
     const saveHidden = () => RM.store(HIDE_KEY, [...hiddenIds]);
     const isHidden = s => s.status === 'done' && hiddenIds.has(s.id);
     const isShown = s => showHidden || !isHidden(s);
 
-    const HIDE_FEATURE_KEY = 'ttpy-roadmap-hidden-features-v2';
+    const HIDE_FEATURE_KEY = migrateStore('roadmap-hidden-features-v2', 'ttpy-roadmap-hidden-features-v2');
     const hiddenFeatureIds = new Set(RM.store(HIDE_FEATURE_KEY) || []);
     const saveHiddenFeatures = () => RM.store(HIDE_FEATURE_KEY, [...hiddenFeatureIds]);
     const isFeatureHidden = f => isDoneFeature(f) && hiddenFeatureIds.has(f.id);
@@ -131,7 +133,7 @@
     // all of its stories are hidden (by the slider or by a manual Hide), so a feature never shows without a story.
     // Remembered per viewer; RM.store swallows storage errors, so the page works without localStorage.
     // v2: the old v1 position counted stories plus features, so it is ignored.
-    const HIDE_DONE_COUNT_KEY = 'ttpy-roadmap-hide-completed-count-v2';
+    const HIDE_DONE_COUNT_KEY = migrateStore('roadmap-hide-completed-count-v2', 'ttpy-roadmap-hide-completed-count-v2');
     const savedHideDoneCount = Number(RM.store(HIDE_DONE_COUNT_KEY));
     let hideDoneCount = Number.isInteger(savedHideDoneCount) && savedHideDoneCount > 0 ? savedHideDoneCount : 0;
     // completed stories, oldest first; a story with no date sorts as oldest
