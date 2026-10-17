@@ -24,7 +24,7 @@ Check context fill with the tool's usage/context display, if any. Adjustable thr
 Checkpoint records what changed; audit checks everything recorded is still true. Run after each task merge, milestone, or process/direction change; before recommending/starting a fresh session; at least every 5 closed tasks.
 
 1. Read all memory files, `MEMORY.md`, `.agent/state/` (via `INDEX.md`).
-2. Compare claims to live state: `git status -sb`, manifest, `git branch`/`git log`, `gh pr list`, available agent roles, cited skills/config. Verify every name, path, URL, commit id, command a fresh session would use.
+2. Compare claims to live state: `checkpoint.py snapshot`, `restart-check`, `memory-status` (or by hand: `git status -sb`, manifest), `git branch`/`git log`, `gh pr list`, available agent roles, cited skills/config. Verify every name, path, URL, commit id, command a fresh session would use.
 3. Fix/delete stale lines in place (no appended corrections). Merge duplicates. Delete superseded notes, folding lasting reasons into survivor. Keep decisions with reasons. ~One screen per file.
 4. Cross-check: *Next step* vs task list, decisions vs skills, every `MEMORY.md` path real, one accurate line per file.
 5. Update manifest/restart kit if tools, skills, roles, URLs, commands changed.

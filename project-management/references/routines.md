@@ -4,8 +4,8 @@ Routine = named checklist. User says "run startup routine"; do steps in order, o
 
 ## Startup
 
-1. **Context.** Read `project_state.md`; `git status -sb`, `git log -3 --oneline`. Disagreement = trust live state, fix note.
-2. **Init check.** Manifest by hand: tools installed, env keys set (by name, never print values), skills and venv exist, memory location right. Manifest `agents.global` roles available; missing = say so, no weaker substitute. Fix only trivial and safe.
+1. **Context.** Read `project_state.md`; run `checkpoint.py brief` (no script: `git status -sb`, `git log -3 --oneline`). Disagreement = trust live state, fix note.
+2. **Init check.** `checkpoint.py restart-check` (no script: by hand): tools installed, env keys set (by name, never print values), skills and venv exist, memory location right. Manifest `agents.global` roles available; missing = say so, no weaker substitute. Fix only trivial and safe.
 3. **Repo and review state.** Branch, uncommitted files, ahead/behind, `gh pr list`, unanswered PR comments (`gh pr view <n> --comments`).
 4. **Next steps.** `.agent/state/next-steps.md` "Next step", loose ends in `watch-outs.md`. List open tasks and decisions waiting on user.
 5. **Project additions** ("Startup additions").
@@ -19,7 +19,7 @@ Routine = named checklist. User says "run startup routine"; do steps in order, o
 3. Commit and push task branches per `repo-management` (never `dev`/`main`). Say what stays uncommitted and why.
 4. Update notes: `next-steps.md` (done, single next action, what waits on user), `decisions.md` entries with reason, `watch-outs.md`, `restart-kit.md` if tooling changed. Delete superseded text; no appended corrections.
 5. Memory audit (`memory-and-audits.md`) incl. cold-start test. Record `Last memory audit: <date>`.
-6. Refresh *Live state* in `project_state.md`.
+6. `checkpoint.py snapshot --write-memory` (refresh *Live state*).
 7. Project additions ("Close-out additions").
 8. Hand-off: resume statement; recommend fresh session if context long.
 
@@ -27,7 +27,7 @@ Routine = named checklist. User says "run startup routine"; do steps in order, o
 
 | Routine | Steps |
 |---|---|
-| Status | `git status -sb`, *Next step*; few lines |
+| Status | `checkpoint.py brief`; few lines |
 | Checkpoint | Close-out 3, 4, 6 |
 | Memory audit | Close-out 5 |
 | PR feedback | List open PRs and unanswered comments; fix or reply; summarize changes and what needs user |

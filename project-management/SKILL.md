@@ -7,6 +7,8 @@ description: Keeps project context saved so a fresh session can resume without l
 
 Usage display, session titles, auto-loaded memory, task list: use only if present; fallbacks in `operating-rules` capability table.
 
+**Agent folder** = `.agent/`, or `.claude/` when the project already uses it (script autodetects). **Script** `scripts/checkpoint.py` (Python 3, stdlib only), run as `python <this-skill>/scripts/checkpoint.py --project . <cmd>`: `brief`, `snapshot [--write-memory]`, `lookup <keyword>`, `restart-check`, `memory-status`. No Python = use the git/grep equivalents noted below.
+
 Conversation is disposable; project state is not. Long conversations cost most tokens (every step re-sends history). State lives in two places:
 
 | Home | Holds | Travels with |
@@ -23,7 +25,7 @@ Outline: `references/templates.md`.
 - `MEMORY.md`: index only, ~12 lines, ≤1,800 B, one pointer per topic with repo path in backticks.
 - `project_state.md`: resume note, ≤2,600 B: *Live state* (branch, last commit), *In flight*, *Next step*, *Rules in one line*, *Where details live*.
 - Everything else: Markdown in `.agent/state/` (`INDEX.md` says when to open each): decisions, restart kit, next steps, watch-outs, log. One entry per bullet.
-- Find detail by grepping `.agent/state/`; never open the whole folder.
+- Find detail with `checkpoint.py lookup <keyword>` (or grep `.agent/state/`); never open the whole folder.
 
 Keep out of memory: anything code, git history or a skill already says; secrets; long logs. Use absolute dates, never "yesterday".
 
@@ -50,7 +52,7 @@ Thresholds and audit steps: `references/memory-and-audits.md`.
 
 1. Task list current: statuses match reality.
 2. Edit *In flight*, *Next step*: concrete, one next action, note ≤2,600 B.
-3. Refresh *Live state* by hand (`git status -sb`, `git log -1 --oneline`).
+3. `checkpoint.py snapshot --write-memory` refreshes the auto *Live state* block (branch, ahead/behind, tree, last commit). No script: edit it by hand from `git status -sb`, `git log -1 --oneline`.
 4. Decisions and preferences: one bullet each in `.agent/state/`; keep `MEMORY.md` pointers in sync (every file listed, every pointer resolves).
 5. Uncommitted work: say so; commit only when asked.
 6. Resume statement: *"Resuming <project> at <where>. Last checkpoint <age>. Next step: <action>. Needs you: <loose ends>."* Also the session handoff.
@@ -59,9 +61,9 @@ Thresholds and audit steps: `references/memory-and-audits.md`.
 
 1. New machine: memory empty; rebuild from repo (manifest, `git log`, `.agent/state/`).
 2. Read only `MEMORY.md` (auto-loads) and `project_state.md`.
-3. `git status -sb`, `git log -3 --oneline`, read *Next step*. **Disagreement = trust live state**, fix note.
+3. `checkpoint.py brief` (no script: `git status -sb`, `git log -3 --oneline`, read *Next step*). **Disagreement = trust live state**, fix note.
 4. Give resume statement; continue with *Next step*.
-5. More detail only if needed: grep state notes or open the one file `MEMORY.md` names. Check manifest tools/environment on tool trouble or new machine.
+5. More detail only if needed: `checkpoint.py lookup <keyword>` or the one file `MEMORY.md` names. `checkpoint.py restart-check` on tool trouble or new machine (no script: check manifest by hand).
 6. Before spawning agents, confirm manifest's `agents.global` roles exist in session; missing = tell user, no weaker substitute.
 
 ## Guardrails

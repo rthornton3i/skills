@@ -13,7 +13,7 @@ Copy, fill, keep short, update in place. Everything below describes a **project'
 
 ## `.agent/project-manifest.json`
 
-Everything needed to restart tooling. Names and paths only, no secrets. Check by hand at start-up. Update in same change when a skill, env var or tool is added/removed.
+Everything needed to restart tooling. Names and paths only, no secrets. `checkpoint.py restart-check` verifies it. Update in same change when a skill, env var or tool is added/removed.
 
 ```json
 {
@@ -38,8 +38,9 @@ metadata:
   type: project
 ---
 
-## Live state
-(branch, ahead/behind, tree state, last commit; refresh by hand with git)
+<!-- auto:begin -->
+(branch, ahead/behind, tree state, last commit; written by `checkpoint.py snapshot --write-memory`, never edit by hand)
+<!-- auto:end -->
 
 ## In flight
 Task t12 (export feature) in review, loop 1 of 2. Implementer idle, waiting on review critic.
@@ -70,7 +71,7 @@ No front matter; ≤12 lines, ≤200 chars each, ≤1,800 B. Line 1 = resume not
 
 | File | Holds | Open when |
 |---|---|---|
-| `INDEX.md` (~1.4 KB) | one line per file (when to open); grep tip; editing rules | any lookup |
+| `INDEX.md` (~1.4 KB) | one line per file (when to open); `lookup` tip; editing rules | any lookup |
 | `decisions.md` | project decisions: bullets; past a few screens, a catalog (heading per subject, one line per entry) with entries in `decisions/<subject>.md` (what, why, how to apply) | changing scope, layout, public names, workflow |
 | `next-steps.md` | single next action, queued work, "Pending from the last close-out audit" | starting work, startup |
 | `watch-outs.md` | project traps; "Loose ends needing the user" | before touching risky areas |
@@ -94,4 +95,4 @@ Close-out, in order; every failure/gap goes to `next-steps.md` ("Pending...") an
 
 > Resuming <project> at <where>. Last checkpoint <age>. Next step: <one action>. Needs you: <loose ends, or "nothing">.
 
-Fresh session reads only `MEMORY.md` + `project_state.md` (~4 KB), then `git status -sb` and `git log -3 --oneline`.
+Fresh session reads only `MEMORY.md` + `project_state.md` (~4 KB), then `checkpoint.py brief` (no script: `git status -sb`, `git log -3 --oneline`).

@@ -28,6 +28,8 @@ Skills name abilities, not tools. At session start, check which exist in this en
 
 ## Rules
 
+- **Agent folder** = `.agent/`, or `.claude/` when the project already uses it. Skills write `.agent/`; read it as the project's actual folder.
+- **Project specifics stay in the project.** Lessons, decisions, traps and rules that apply to one project go in that project's agent folder (`state/decisions.md`, `state/watch-outs.md`, `state/audit-lessons.md`, `state/next-steps.md`), never in a skill. Skills hold only what holds in every project. Project `operating-rules.md` files are not a thing: generic lines belong here, project-only lines in `decisions.md` ("Standing project rules").
 - **User profile.** Fill in per user: platform/shell, experience level, how they like updates (length, where read). Match explanations to it.
 - **Top rule: token efficiency without losing quality.** Pay for critics and reviews, not repeated context: scoped briefs, no re-reading unchanged files, one critic run per stage, capped reports. Conflict = keep the check, cut the re-reading.
 - **Record first.** Set task status in the task list before working (`agent-workflow`).

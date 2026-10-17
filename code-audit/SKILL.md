@@ -13,7 +13,7 @@ User-triggered, after a large task or several closed tasks (not per task; review
 - Known issues not to report (audit plan, `watch-outs.md`).
 - Cap: read slice once, run its tests once, ≤~10 throwaway probes.
 - Report in the reply, not a file.
-- Read `lessons.md` first; highest-yield checks first, skip ones marked not paying off. Unique probe filename prefix per auditor.
+- Project's `audit-lessons.md` (in its agent folder `state/`): read first; highest-yield checks first, skip ones marked not paying off. Unique probe filename prefix per auditor.
 
 ## Pass 1: lint and hygiene (cheap, first)
 
@@ -57,9 +57,20 @@ For each bug state materiality: run affected case on real data; unchanged result
 
 `VERDICT: CLEAN | FINDINGS`; findings grouped by pass, ranked by impact. Each: `[bug|risk|cleanup] file:line - what`, evidence (command or traced code), effect on results, fix, confidence (`confirmed` reproduced, `read` traced only, `suspicion`). End: covered, not covered, rough tool calls.
 
-## Lessons (update every run)
+## Lessons (project-local, update every run)
 
-`lessons.md`: where bugs hide, checks that paid off or not, fitting architecture, cost. After EVERY audit (mandatory): update it from reports; add bug locations, drop checks that found nothing, record cost. Merge duplicates, delete entries proven wrong. Refine this file when a lesson changes the audit. Both stay short.
+Lessons are project-specific: keep them in the project's `<agent folder>/state/audit-lessons.md`, never in this skill. If missing, create it from the template below. After EVERY audit (mandatory): update it from reports; add bug locations, drop checks that found nothing, record cost. Merge duplicates, delete entries proven wrong. Refine this skill only when a lesson applies to all projects. Keep both short.
+
+```
+# Audit lessons
+Each entry: what was learned + evidence. Merge duplicates; delete entries proven wrong.
+## Where bugs hid
+## Checks that paid off
+## Checks that did not pay off (skip or shrink)
+## Architecture notes (what fits, weak seams)
+## Calibration (cost per slice in tokens/time; tips for parallel auditors)
+## Review of the implementations (reviews that pay, recurring nits)
+```
 
 ## Afterwards
 
