@@ -42,15 +42,17 @@ Keep one task list (session task tool or checklist in notes). Update it **before
 
 ## Pipeline
 
-| Stage | Role | Emphasis | Job |
-|---|---|---|---|
-| 0 (optional) | plan helper | broad view | Request too large to plan directly: high-level breakdown only (pieces, order, watch-outs). No criteria, no file steps. |
-| 1 Plan | planner | extra focus on investigation, trade-offs | Investigate, choose approach, weigh one alternative. Plan: objective, acceptance criteria, files, ordered steps, out of scope, exact verification. One run. |
-| 2 Plan critic | plan critic | extra focus on challenging choices | Devil's advocate: simpler/cheaper/safer path? What is missed? Attacks plan only, not code. **One attempt.** |
-| 3 Implement | implementer | strict execution | Executes plan. No redesign; plan wrong/impossible = stop and report. Admin: lighter pass. |
-| 4 Review | review critic | multiple checks: run it, failure paths, before/after, docs | Work error-free and meets criteria. Does not re-litigate plan. |
-| 5 Approval | orchestrator | light evidence check | Approves. No separate agent. |
-| 6 Audit (optional) | auditor | routine (3 passes) or deep (extra focus on risky slices) | After high-complexity task or several closed tasks. Read-only. Deep only on user request. |
+| Stage | Role | Emphasis | Job | Preset (optional) |
+|---|---|---|---|---|
+| 0 (optional) | plan helper | broad view | Request too large to plan directly: high-level breakdown only (pieces, order, watch-outs). No criteria, no file steps. | `plan-helper-opus-high` |
+| 1 Plan | planner | extra focus on investigation, trade-offs | Investigate, choose approach, weigh one alternative. Plan: objective, acceptance criteria, files, ordered steps, out of scope, exact verification. One run. | `planner-sonnet-high` |
+| 2 Plan critic | plan critic | extra focus on challenging choices | Devil's advocate: simpler/cheaper/safer path? What is missed? Attacks plan only, not code. **One attempt.** | `plan-critic-opus-high` |
+| 3 Implement | implementer | strict execution | Executes plan. No redesign; plan wrong/impossible = stop and report. Admin: lighter pass. | code `implementer-opus-medium`; admin `implementer-sonnet-medium` |
+| 4 Review | review critic | multiple checks: run it, failure paths, before/after, docs | Work error-free and meets criteria. Does not re-litigate plan. | `review-critic-opus-medium` |
+| 5 Approval | orchestrator | light evidence check | Approves. No separate agent. | none |
+| 6 Audit (optional) | auditor | routine (3 passes) or deep (extra focus on risky slices) | After high-complexity task or several closed tasks. Read-only. Deep only on user request. | routine `code-auditor-opus-medium`; deep `code-auditor-opus-high` |
+
+**Preset** = optional named agent (model tier + effort) for tools that define agents, e.g. Claude Code projects. Use it when the project defines that agent; otherwise follow Role/Emphasis/Job only. Escalation (`references/review-escalate-close.md`) moves the implementer to a stronger model than its preset. A project's own presets override this column.
 
 - **Stage 0**: rare. Use when request spans many files/packages, unclear scope, or bundles distinct work. Output goes into planner brief. Once per request; never writes the plan.
 - **Cadence**: all but implementer run once per task.
