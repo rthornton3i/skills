@@ -38,7 +38,7 @@ Keep one task list (session task tool or checklist in notes). Update it **before
 - Failed/abandoned action: fix list at once.
 - Direct tasks without agents: mark `implementing` first.
 - At safe restart points (task closed, commit, verdict) checkpoint memory (`project-management`).
-- Tag `Agent` descriptions `[task/role] text`.
+- Tag agent descriptions `[task/role] text`.
 
 ## Pipeline
 
@@ -53,7 +53,7 @@ Keep one task list (session task tool or checklist in notes). Update it **before
 | 6 Audit (optional) | auditor | routine (3 passes) or deep (extra focus on risky slices) | After high-complexity task or several closed tasks. Read-only. Deep only on user request. |
 
 - **Stage 0**: rare. Use when request spans many files/packages, unclear scope, or bundles distinct work. Output goes into planner brief. Once per request; never writes the plan.
-- **Cadence**: all but implementer run once per task. One plan, one plan critic, one review of whole task, one approval.
+- **Cadence**: all but implementer run once per task.
 - **Admin tier**: orchestrator writes plan, light implementer executes, orchestrator reviews diff itself (always) and notes `Orchestrator review: <result>`. Plan only; no prototypes.
 - **Complexity**: classify once before planning, note `Complexity: simple|high, why`. HIGH (new types/architecture, result-changing logic, data formats/schemas, concurrency, user-flagged) = planner + plan critic. SIMPLE (renames, dead code, small hand-checkable fixes, UI-only) = short orchestrator plan, one implementer, tests + before/after parity check, review critic only if a result could change. Unsure = high. Never split a high task to dodge the critic. If cost is the worry, report and ask.
 - **Plan critic verdict**: `PLAN OK` or `BETTER PATH` + findings. Better path: revise plan once (edit it or send findings to planner), note why, implement. Never run twice. Fundamentally different approach: orchestrator picks, notes reason.
@@ -81,14 +81,13 @@ Keep one task list (session task tool or checklist in notes). Update it **before
 
 Cache reads dominate cost; orchestrator is the largest share.
 
-- Compact/summarize context at natural breaks (task closed, long report absorbed, ~40% context); never while a result is pending.
-- Agent reports ~100 words max; bullets with file:line for findings.
-- Fewer, larger launches. No status-only turns. Don't paste agent reports to user.
+- Compact/summarize context at natural breaks (task closed, long report absorbed, ~40%); never with a result pending.
+- Agent reports ~100 words; findings as bullets with file:line. Fewer, larger launches. No status-only turns; don't paste reports to user.
 - One implementer at a time by default; parallel only for disjoint files and docs, and user wants speed.
 - Plans name exact files, functions, reusable helpers, fixtures, baselines, docs touched. Agent should not need to explore.
 - Plan flags data/rule changes that move baseline results; asks user before implementation.
 - Implementer: one full read per touched file, targeted edits and tests, one full fast-suite run and one docs build at end.
-- Re-record baselines and regenerate artifacts with the project's script, never by hand.
+- Re-record baselines/regenerate artifacts with the project's script, never by hand.
 
 ## Bug reduction
 

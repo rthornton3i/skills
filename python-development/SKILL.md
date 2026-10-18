@@ -31,10 +31,9 @@ Match surrounding code: comment density, names, idiom. Project skill/notes win o
 ## Tests
 - Behavior change needs a test failing without it. Re-record baselines only with the project's recorder script.
 - Add/rename/remove test = update generated test catalog (`documentation`).
-- Cheap runs: implementer runs touched files' tests plus baseline tests, quiet runner, reads last ~15 lines or failures. `slow` tests run once per task by review critic. Never paste full test output.
+- Cheap runs: touched files' tests plus baseline tests (`agent-workflow` cheap tests); `slow` tests once per task by the review critic.
 
 ## Editing hygiene
 - Read file before editing. Files may be CRLF: scripted edits read bytes, keep original line endings.
-- Python with backslashes or backticks breaks in shell heredocs: write the script to a file with a file-write tool, then run it.
-- Agent in git worktree may import main repo's package: set `PYTHONPATH` to worktree source before starting Python; confirm with package `__file__`.
+- Python with backslashes/backticks breaks in shell heredocs: write to a file, then run. Worktree may import the main repo's package: see `operating-rules` traps (`PYTHONPATH`).
 - Never read, print or write `.env`.

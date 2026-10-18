@@ -29,25 +29,20 @@ Skills name abilities, not tools. At session start, check which exist in this en
 ## Rules
 
 - **Agent folder** = `.agent/`, or `.claude/` when the project already uses it. Skills write `.agent/`; read it as the project's actual folder.
-- **Project specifics stay in the project.** Lessons, decisions, traps and rules that apply to one project go in that project's agent folder (`state/decisions.md`, `state/watch-outs.md`, `state/audit-lessons.md`, `state/next-steps.md`), never in a skill. Skills hold only what holds in every project. Project `operating-rules.md` files are not a thing: generic lines belong here, project-only lines in `decisions.md` ("Standing project rules").
-- **User profile.** Fill in per user: platform/shell, experience level, how they like updates (length, where read). Match explanations to it.
-- **Top rule: token efficiency without losing quality.** Pay for critics and reviews, not repeated context: scoped briefs, no re-reading unchanged files, one critic run per stage, capped reports. Conflict = keep the check, cut the re-reading.
-- **Record first.** Set task status in the task list before working (`agent-workflow`).
-- **Independent review mandatory.** Self-check is not review. Every behavior/data change passes a review critic before `done`; no skipped stages. Only no-behavior work (doc wording, bookkeeping) may take a logged waiver. Skip critics on mechanical work only with user's word; ask again next time. No retrospective reviews of old work.
-- **Classify complexity per task.** High = full pipeline; simple = lean path; unsure = high.
-- **Small, conservative changes**; follow agreed process; narrow agent briefs.
-- **Plain language about cost.** Analogy tied to user's own numbers; define each term once; short glossary; end with practical implication.
-- **Real vs sample.** Never present invented content as real. Default real data; label samples visibly. Back claims about code by running it.
-- **Approvals.** User approves only pushes to `dev`/`main` and PRs into them. Committing and pushing feature branches: no confirmation. Force-push, history rewrite, deleting unmerged work: explicit request (`repo-management`).
-- **Feature branches only**; never commit on `dev`/`main`.
-- **No planning words in skills/code.** Task ids, statuses, `.agent/state` paths stay in state notes.
-- **Docs are part of the task.**
-- **Lean notes.** Memory = index + resume note; rest in repo `.agent/state/`, one self-contained bullet per entry, superseded text deleted (`project-management`).
-- **Cost by session length, not agent caps:** fresh sessions at natural breaks (after a task, ~35-50% context).
-- **One thread per task.** Task concluded = resolve thread; new work gets a new, accurately named thread.
-- **Sync checkout to `dev` after merges:** `git fetch`, checkout `dev`, `git pull --ff-only`, reinstall, test. Never discard uncommitted work: stash (uniquely tagged), tell user.
-- **Questions as structured prompts** (see Capability check), 2-4 options, recommended first, never numbered prose. Each has "Get more info first"; built-in "Other" covers other topics. "Get more info" chosen = research, re-ask same card; don't decide for user.
-- **User-level files may not be in git.** Before changing `~/.agent/`, copy to `~/.agent/retired/backups/<date>-<topic>/`; edit with file-edit tools (no scripts); read back.
+- **Project specifics stay in the project**: lessons, decisions, traps, rules for one project go in its agent folder (`state/decisions.md` incl. "Standing project rules", `watch-outs.md`, `audit-lessons.md`, `next-steps.md`), never in a skill. No project `operating-rules.md` files.
+- **User profile**: fill per user (platform/shell, experience, update style); match explanations to it.
+- **Token efficiency without losing quality** (top rule): pay for critics and reviews, not repeated context: scoped briefs, no re-reading unchanged files, one critic run per stage, capped reports. Conflict = keep the check, cut the re-reading. Fresh sessions at natural breaks (after a task, ~35-50% context), not agent caps.
+- **Record first**: set task status before working (`agent-workflow`). Classify complexity per task; unsure = high.
+- **Independent review mandatory**: every behavior/data change passes a review critic before `done`; self-check is not review. Only no-behavior work may take a logged waiver. Skip critics on mechanical work only with the user's word, asked each time. No retrospective reviews of old work.
+- **Small, conservative changes**; agreed process; narrow briefs. Docs are part of the task.
+- **Plain language about cost**: analogy tied to the user's numbers; define each term once; end with the practical implication.
+- **Real vs sample**: never present invented content as real; default real data, label samples; back claims about code by running it.
+- **Git** (`repo-management`): feature branches only, never commit on `dev`/`main`; user approves only pushes to `dev`/`main` and PRs into them; feature-branch commits/pushes need no confirmation; force-push, history rewrite, deleting unmerged work need an explicit request. After merges sync `dev` (`git fetch`, checkout, `pull --ff-only`, reinstall, test); never discard uncommitted work: stash (uniquely tagged), tell user.
+- **No planning words in skills/code** (task ids, statuses, state paths): they stay in state notes.
+- **Lean notes**: memory = index + resume note; rest in `.agent/state/`, one self-contained bullet each, superseded text deleted (`project-management`).
+- **One thread per task**: concluded = resolve; new work gets a new, accurately named thread.
+- **Questions**: structured prompts (see Capability check), 2-4 options, recommended first, plus "Get more info first" (= research, re-ask same question; don't decide for user). Never numbered prose.
+- **User-level files may not be in git**: back up before changing `~/.agent/`; edit with file-edit tools; read back.
 
 ## Read when needed
 

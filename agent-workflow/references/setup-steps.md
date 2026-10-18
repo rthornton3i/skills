@@ -10,7 +10,7 @@ Each spawn re-derives context you hold. Behavior tasks always use full pipeline.
 2. **Acceptance criteria before anyone starts**: concrete, checkable ("`app.py` exits 0 on sample data", not "works"). Same criteria brief implementer, drive critic, define done. Keep with task.
 3. Mark dependencies. Independent tasks may run parallel; tasks touching same files run sequentially or in isolated worktrees.
 4. Cut task branch from integration branch. Agents never push or merge.
-5. **Every task gets one independent review before `done`.** Review critic = fresh agent, once per task, after orchestrator verifies (step 4). Applies even if orchestrator did the work. High-stakes (money, security, data correctness, irreversible) also gets your own independent verification. Only exception: waiver for no-behavior, no-data tasks; note `Review waived: <reason>`. Unsure = review.
+5. **One independent review per task before `done`** (step 5 of `review-escalate-close.md`), even if the orchestrator did the work. High-stakes (money, security, data correctness, irreversible) also gets your own verification. Only exception: waiver for no-behavior, no-data tasks; note `Review waived: <reason>`.
 
 ## 2. Create and brief
 

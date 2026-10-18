@@ -24,7 +24,7 @@ State goal (criteria met, tests green, no high findings) at loop start.
 
 ## Final approval
 
-Light check, not second review. After review `PASS`, before `done`/merge: confirm evidence chain, record `Orchestrator final approval: <why>`. Quick read of plan, plan critic verdict, diff summary, critic's "Checked" list. Gap (failure path never exercised, diff beyond plan) = targeted re-check, not approval.
+Light check per `SKILL.md`, after review `PASS`, before `done`/merge. Read plan, plan critic verdict, diff summary, critic's "Checked" list; record `Orchestrator final approval: <why>`. Gap = targeted re-check, not approval.
 
 ## 7. Escalate
 
