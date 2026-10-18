@@ -13,7 +13,7 @@ main / dev / feature; user approves work before it reaches `dev`.
 
 - **`main`**: stable, last known-good milestone. No direct commits. Advances only when `dev` is promoted.
 - **`dev`**: integration, cut from `main`. Receives work only via approved PR.
-- **`feature/<name>`**: one per task, cut from `dev`. After gate (criteria met, verified, critic pass where required) open PR into `dev`. Pushing feature branches needs no confirmation, even with open PR (push updates it).
+- **`feature/<name>`**: one per task, cut from `dev`. After gate (criteria met, verified, critic pass where requested) open PR into `dev`. Pushing feature branches needs no confirmation, even with open PR (push updates it).
 - **Promotion** `dev` → `main`: deliberate milestones, done by the user. Never open a PR against `main` or merge into it.
 
 **Every PR targets `dev`** (`--base dev`) unless user names another base for that PR. No `dev` yet = propose creating from `main`.

@@ -5,7 +5,7 @@ description: How to brief and run a read-only code audit in three ordered passes
 
 # Code audit: three passes, in order
 
-User-triggered, after a large task or several closed tasks (not per task; review critic covers that). Read-only: auditor never edits. One slice per call. Orchestrator writes the report to the project's audit-findings file and turns confirmed defects into bug tasks.
+User-triggered, after a large task or several closed tasks (not per task). Read-only: auditor never edits. One slice per call. Orchestrator writes the report to the project's audit-findings file and turns confirmed defects into bug tasks.
 
 ## Brief
 

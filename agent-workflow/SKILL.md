@@ -1,6 +1,6 @@
 ---
 name: agent-workflow
-description: Runs tasks with multiple agents (planner, plan critic, implementer, review critic) under an orchestrator. Use when planning or running a multi-step task, delegating to subagents, setting up critic loops, or retiring agents.
+description: Runs tasks with multiple agents (planner, implementer, optional plan critic and review critic) under an orchestrator. Use when planning or running a multi-step task, delegating to subagents, setting up critic loops, or retiring agents.
 ---
 
 # Agent workflow
@@ -9,30 +9,30 @@ Abilities used here (subagents, messaging, stopping, task list, worktrees, compa
 
 Orchestrator = main session talking to user. Owns plan, briefs, verification, merges. Subagents do bounded tasks, report back. Subagent starts cold, reports what it *intended*, not always what happened.
 
-**Task** = unit of assignment, review, integration: one goal, one branch, one plan, one review gate. Split big requests into tasks.
+**Task** = unit of assignment, review, integration: one goal, one branch, one plan, one approval gate. Split big requests into tasks.
 
 ## Scope
 
 Pipeline is for **behavior and data changes**: code changing what program does, results, data, secrets, hard-to-reverse state. Admin changes (doc wording, memory, skills, tooling, bookkeeping) use admin tier. Decide tier before planning; note `Tier: full` or `Tier: admin, <reason>`. Unsure = full.
 
-**Docs are part of the task.** Behavior change that makes docs wrong (usage docs, docstrings, config refs, README) updates them in same task. Planner names affected docs, implementer updates, review critic checks.
+**Docs are part of the task.** Behavior change that makes docs wrong (usage docs, docstrings, config refs, README) updates them in same task. Planner names affected docs, implementer updates, verification (or review critic, if run) checks.
 
 ## Record first
 
 Keep one task list (session task tool or checklist in notes). Update it **before** acting, never after.
 
-`planning` → `plan-review` → `implementing` → `review` → `approval` → `done`. Never skip to `done`.
+`planning` → `plan-review`* → `implementing` → `review`* → `approval` → `done`. Never skip to `done`. *Only when the user requested that critic.
 
 | About to… | First record |
 |---|---|
 | Spawn planner | `planning` |
-| Spawn plan critic | `plan-review` |
+| Spawn plan critic (if requested) | `plan-review` |
 | Spawn/message implementer | `implementing` |
-| Spawn review critic | `review`, loop `1 / 2` |
-| Send findings back | `implementing`, loop `2 / 2`, findings |
+| Spawn review critic (if requested) | `review`, loop `1 / 2` |
+| Send findings back (critic or own verification) | `implementing`, loop `2 / 2`, findings |
 | Escalate | `implementing`, new agent, `escalated A -> B`, why |
 | Final check | `approval` |
-| Passed (review `PASS` + approval, or waiver) | `done`, one-line outcome |
+| Passed (verified + approval; review `PASS` if run) | `done`, one-line outcome |
 
 - Record verdicts the moment known, before next step (merge, next agent).
 - Failed/abandoned action: fix list at once.
@@ -45,31 +45,32 @@ Keep one task list (session task tool or checklist in notes). Update it **before
 | Stage | Role | Emphasis | Job | Preset (optional) |
 |---|---|---|---|---|
 | 0 (optional) | plan helper | broad view | Request too large to plan directly: high-level breakdown only (pieces, order, watch-outs). No criteria, no file steps. | `plan-helper-opus-high` |
-| 1 Plan | planner | extra focus on investigation, trade-offs | Investigate, choose approach, weigh one alternative. Plan: objective, acceptance criteria, files, ordered steps, out of scope, exact verification. One run. | `planner-sonnet-high` |
-| 2 Plan critic | plan critic | extra focus on challenging choices | Devil's advocate: simpler/cheaper/safer path? What is missed? Attacks plan only, not code. **One attempt.** | `plan-critic-opus-high` |
+| 1 Plan | planner | extra focus on investigation, trade-offs | Investigate, choose approach, weigh one alternative. Plan: objective, acceptance criteria, files, ordered steps, out of scope, exact verification. One run. | `planner-opus-medium` |
+| 2 Plan critic (optional, on request) | plan critic | extra focus on challenging choices | Devil's advocate: simpler/cheaper/safer path? What is missed? Attacks plan only, not code. **One attempt.** | `plan-critic-opus-high` |
 | 3 Implement | implementer | strict execution | Executes plan. No redesign; plan wrong/impossible = stop and report. Admin: lighter pass. | code `implementer-opus-medium`; admin `implementer-sonnet-medium` |
-| 4 Review | review critic | multiple checks: run it, failure paths, before/after, docs | Work error-free and meets criteria. Does not re-litigate plan. | `review-critic-opus-medium` |
+| 4 Review (optional, on request) | review critic | multiple checks: run it, failure paths, before/after, docs | Work error-free and meets criteria. Does not re-litigate plan. | `review-critic-opus-medium` |
 | 5 Approval | orchestrator | light evidence check | Approves. No separate agent. | none |
 | 6 Audit (optional) | auditor | routine (3 passes) or deep (extra focus on risky slices) | After high-complexity task or several closed tasks. Read-only. Deep only on user request. | routine `code-auditor-opus-medium`; deep `code-auditor-opus-high` |
 
 **Preset** = optional named agent (model tier + effort) for tools that define agents, e.g. Claude Code projects. Use it when the project defines that agent; otherwise follow Role/Emphasis/Job only. Escalation (`references/review-escalate-close.md`) moves the implementer to a stronger model than its preset. A project's own presets override this column.
 
+- **Optional critics**: plan critic and review critic run only when the user explicitly asks (per task, or as a standing project rule). The orchestrator may *recommend* them (one line, with why) when the planner designates the task `high` complexity; it never starts them unasked. Without critics: planner plans, implementer executes, orchestrator verifies (step 4) and approves.
 - **Stage 0**: rare. Use when request spans many files/packages, unclear scope, or bundles distinct work. Output goes into planner brief. Once per request; never writes the plan.
-- **Cadence**: all but implementer run once per task.
+- **Cadence**: planner and any critic run once per task.
 - **Admin tier**: orchestrator writes plan, light implementer executes, orchestrator reviews diff itself (always) and notes `Orchestrator review: <result>`. Plan only; no prototypes.
-- **Complexity**: classify once before planning, note `Complexity: simple|high, why`. HIGH (new types/architecture, result-changing logic, data formats/schemas, concurrency, user-flagged) = planner + plan critic. SIMPLE (renames, dead code, small hand-checkable fixes, UI-only) = short orchestrator plan, one implementer, tests + before/after parity check, review critic only if a result could change. Unsure = high. Never split a high task to dodge the critic. If cost is the worry, report and ask.
-- **Plan critic verdict**: `PLAN OK` or `BETTER PATH` + findings. Better path: revise plan once (edit it or send findings to planner), note why, implement. Never run twice. Fundamentally different approach: orchestrator picks, notes reason.
+- **Complexity**: planner (orchestrator, for simple tasks) classifies once before planning, notes `Complexity: simple|high, why`. HIGH (new types/architecture, result-changing logic, data formats/schemas, concurrency, user-flagged) = planner plan, and recommend both critics. SIMPLE (renames, dead code, small hand-checkable fixes, UI-only) = short orchestrator plan, one implementer, tests + before/after parity check. Unsure = high. Never split a high task to dodge the recommendation.
+- **Plan critic verdict** (if run): `PLAN OK` or `BETTER PATH` + findings. Better path: revise plan once (edit it or send findings to planner), note why, implement. Never run twice. Fundamentally different approach: orchestrator picks, notes reason.
 - **Implementer**: brief = final plan + constraints. Deviations reported, not made.
-- **Review critic**: runs things; returns `PASS` or `CHANGES`. Fixes go to implementer.
-- **Approval is light.** Confirm chain intact: plan critic ran once, implementer followed plan or reported deviations, review `PASS` with evidence covering risky and failure paths, diff matches plan, no unintended result changes. Re-run code only if evidence has gaps. Gap = targeted re-check or ask user. User approves anything reaching a shared branch.
+- **Review critic** (if run): runs things; returns `PASS` or `CHANGES`. Fixes go to implementer.
+- **Approval is light.** Confirm chain intact: any requested critic ran once, implementer followed plan or reported deviations, verification (or review `PASS`) has evidence covering risky and failure paths, diff matches plan, no unintended result changes. Re-run code only if evidence has gaps. Gap = targeted re-check or ask user. User approves anything reaching a shared branch.
 - **Waiver**: no behavior and no data change (doc wording, comments, formatting, memory bookkeeping) = orchestrator may do directly with noted waiver. Scripts count as behavior. Unsure = pipeline.
 - **Roles are setups, not names.** Brief each stage with its emphasis and an independent context. No separate agent for a stage = fresh sub-session with same emphasis. Never swap in a weaker check; tell user.
 
 ## Guardrails
 
 - No task starts or changes state before the list shows it.
-- Never run plan critic twice on one plan.
-- No `done` without review `PASS` or noted waiver (admin: orchestrator diff review) plus recorded approval. Self-check is not review.
+- Never run plan critic twice on one plan; never start a critic the user didn't request.
+- No `done` without verification evidence (admin: orchestrator diff review), recorded approval, and `PASS` from any requested review critic. Implementer's own report is not verification.
 - Agents never push, merge, force anything, or write secrets. Say so in every brief.
 - Don't spawn for what two tool calls do.
 - Unclear brief: fix brief, don't escalate.

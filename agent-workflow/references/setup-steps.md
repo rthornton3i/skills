@@ -2,7 +2,7 @@
 
 ## 0. Use agents at all?
 
-Each spawn re-derives context you hold. Behavior tasks always use full pipeline. Small no-behavior tasks with known target: do directly, noted waiver. Extra agents only for independent parallel work or large searches that would flood context. Track task in list either way.
+Each spawn re-derives context you hold. Behavior tasks use the pipeline (critics only if requested). Small no-behavior tasks with known target: do directly, noted waiver. Extra agents only for independent parallel work or large searches that would flood context. Track task in list either way.
 
 ## 1. Plan
 
@@ -10,7 +10,7 @@ Each spawn re-derives context you hold. Behavior tasks always use full pipeline.
 2. **Acceptance criteria before anyone starts**: concrete, checkable ("`app.py` exits 0 on sample data", not "works"). Same criteria brief implementer, drive critic, define done. Keep with task.
 3. Mark dependencies. Independent tasks may run parallel; tasks touching same files run sequentially or in isolated worktrees.
 4. Cut task branch from integration branch. Agents never push or merge.
-5. **One independent review per task before `done`** (step 5 of `review-escalate-close.md`), even if the orchestrator did the work. High-stakes (money, security, data correctness, irreversible) also gets your own verification. Only exception: waiver for no-behavior, no-data tasks; note `Review waived: <reason>`.
+5. **Verify every task** (step 4 of `review-escalate-close.md`). Independent review critic only if the user requested it; for `high` complexity or high-stakes work (money, security, data correctness, irreversible), recommend it in one line and let the user decide.
 
 ## 2. Create and brief
 

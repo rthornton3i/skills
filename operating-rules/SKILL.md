@@ -1,6 +1,6 @@
 ---
 name: operating-rules
-description: User's standing preferences, cross-project decisions and known traps for every repository: explaining cost, real vs sample data, mandatory critic review, small changes, token efficiency, approvals, branch rules, where notes live. Use at start of work, before reviewing/closing work, or when unsure how the user wants something done.
+description: User's standing preferences, cross-project decisions and known traps for every repository: explaining cost, real vs sample data, optional critics, small changes, token efficiency, approvals, branch rules, where notes live. Use at start of work, before reviewing/closing work, or when unsure how the user wants something done.
 ---
 
 # Operating rules (all projects)
@@ -33,7 +33,7 @@ Skills name abilities, not tools. At session start, check which exist in this en
 - **User profile**: fill per user (platform/shell, experience, update style); match explanations to it.
 - **Token efficiency without losing quality** (top rule): pay for critics and reviews, not repeated context: scoped briefs, no re-reading unchanged files, one critic run per stage, capped reports. Conflict = keep the check, cut the re-reading. Fresh sessions at natural breaks (after a task, ~35-50% context), not agent caps.
 - **Record first**: set task status before working (`agent-workflow`). Classify complexity per task; unsure = high.
-- **Independent review mandatory**: every behavior/data change passes a review critic before `done`; self-check is not review. Only no-behavior work may take a logged waiver. Skip critics on mechanical work only with the user's word, asked each time. No retrospective reviews of old work.
+- **Critics on request**: plan critic and review critic run only when the user explicitly asks. Recommend them (one line, why) when a task is `high` complexity or high-stakes; never start unasked. The orchestrator still verifies every task (run it, read the diff) before `done`; the implementer's report is not verification. No retrospective reviews of old work.
 - **Small, conservative changes**; agreed process; narrow briefs. Docs are part of the task.
 - **Plain language about cost**: analogy tied to the user's numbers; define each term once; end with the practical implication.
 - **Real vs sample**: never present invented content as real; default real data, label samples; back claims about code by running it.

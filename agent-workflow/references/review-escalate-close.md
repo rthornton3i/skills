@@ -2,9 +2,9 @@
 
 ## 4. Verify before trusting
 
-Agent summary = claim. Read the diff, run criteria commands, check: edits outside scope, "passing" that never ran code, weakened tests, leftover debug. Then move to `review`. Your verification precedes critic, never replaces it.
+Agent summary = claim. Read the diff, run criteria commands, check: edits outside scope, "passing" that never ran code, weakened tests, leftover debug. Then, if the user requested a review critic, move to `review`; otherwise go to approval. Your verification precedes any critic. Failures it finds go back to the implementer (loop below) without a critic.
 
-## 5. Review
+## 5. Review (only if requested)
 
 Spawn review critic **once per task** after step 4. Fresh agent. Give acceptance criteria and where change lives (branch/diff), *not* implementer's reasoning. Narrow scope: run things, check error-free and criteria met. No plan re-litigation, no rewrites, no praise. If plan named docs affected, critic checks they were updated and match; stale doc = `CHANGES`. Require:
 
@@ -17,14 +17,14 @@ No scenario = noise; drop. Record review and loop number (`1 / max`).
 
 1. **Triage** yourself. Critics err. Accept/reject each with reason; never forward blindly.
 2. Send accepted findings to same implementer (message it; keeps context) or fresh one if off track. Bump loop, note findings.
-3. Re-verify, re-review changed files only. Delta check: message same critic; clean second opinion: new one. Plan critic never re-runs.
+3. Re-verify, re-review changed files only. Delta check: message same critic; clean second opinion: new one. Plan critic never re-runs. Without a review critic, the exit is green verification.
 4. **Exit**: `PASS` + green verification = done. `minLoops` hit and still wrong = escalate (7). Same finding twice = brief/approach wrong, re-plan. Budget or ladder exhausted = give user remaining findings.
 
 State goal (criteria met, tests green, no high findings) at loop start.
 
 ## Final approval
 
-Light check per `SKILL.md`, after review `PASS`, before `done`/merge. Read plan, plan critic verdict, diff summary, critic's "Checked" list; record `Orchestrator final approval: <why>`. Gap = targeted re-check, not approval.
+Light check per `SKILL.md`, after verification (and review `PASS` if run), before `done`/merge. Read plan, plan critic verdict (if run), diff summary, critic's "Checked" list (or your own verification); record `Orchestrator final approval: <why>`. Gap = targeted re-check, not approval.
 
 ## 7. Escalate
 
@@ -48,7 +48,7 @@ Later review finds what earlier passed = add checks to review brief for similar 
 
 ## 8. Close
 
-`done` needs: criteria met, evidence, review `PASS` (or noted waiver), recorded approval. Skipped a stage? Move back to `review`, say so, run critic. Note outcome in one line. Merge branch per repo rules, then memory audit and checkpoint (`project-management`). **Shared branches are user's call**: never merge a PR into protected branch; confirm other pushes.
+`done` needs: criteria met, evidence, `PASS` from any requested review critic, recorded approval. Skipped a requested stage? Move back, say so, run it. Note outcome in one line. Merge branch per repo rules, then memory audit and checkpoint (`project-management`). **Shared branches are user's call**: never merge a PR into protected branch; confirm other pushes.
 
 ## 9. Retire agents
 

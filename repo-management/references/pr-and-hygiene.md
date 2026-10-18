@@ -2,11 +2,11 @@
 
 ## Pull request
 
-Task done (criteria met, verified, critic pass where required): open PR from feature branch into `dev`, then stop. User reviews and approves. Never approve, merge or auto-merge.
+Task done (criteria met, verified, critic pass where requested): open PR from feature branch into `dev`, then stop. User reviews and approves. Never approve, merge or auto-merge.
 
 1. Branch clean, up to date with `dev`, project checks pass (tests, docs build, smoke run).
 2. Push (pre-authorized), open PR against `dev`.
-3. Title short, imperative. Body: what changed; verification evidence (commands, results); critic verdicts and escalations; follow-ups/deferred; what reviewer should scrutinize.
+3. Title short, imperative. Body: what changed; verification evidence (commands, results); critic verdicts and escalations (if any); follow-ups/deferred; what reviewer should scrutinize.
 4. `gh pr create --base dev --head feature/<name>`. Always pass `--base dev` (`gh` defaults to repo default, usually `main`); confirm base after. Run `gh auth status` first. Not authenticated = tell user, give compare link instead: `git remote get-url origin`, drop `.git`, append `/compare/dev...feature/<name>`.
 5. Wait for review. Changes = new commits on branch. After merge, cut next branch from updated `dev`. Starting next task before approval stacks on unmerged base; get user's explicit okay.
 

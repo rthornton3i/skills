@@ -4,9 +4,9 @@ Rules live in the skill that owns them; this holds the reasons and known traps. 
 
 ## Reasons (rule -> why)
 
-- **Tiered pipeline** (`agent-workflow`): behavior/data changes get full stages; admin changes skip them. Difficulty sets planning focus, stakes set review depth. Why: spend on checks where errors cost.
+- **Tiered pipeline** (`agent-workflow`): behavior/data changes get planner + implementer + verification; admin changes skip the planner. Difficulty sets planning focus, stakes set review depth. Why: spend on checks where errors cost.
 - **Plan helper** only for oversized requests: a sketched architecture beats paying for exploration on every task.
-- **Plan critic once**: strong plan challenged once, then execution and independent check, no repeated context. Orchestrator may not skip it alone; cost worry = report and ask.
+- **Critics optional, once each**: extra agents cost tokens, so the user opts in; when run, a plan is challenged once and work reviewed once, no repeated context. Orchestrator recommends them for high-complexity/high-stakes tasks, never starts them alone.
 - **Cost model**: every orchestrator request re-reads the whole session, so cache reads dominate. So: fewer round trips beat smaller files (prefer composite commands); images inflate every later request (delegate render checks, read DOM/text); fresh sessions at task boundaries; delete dead notes.
 - **Feature branches off `dev`, PRs into `dev`**: `dev` stays releasable; user alone promotes to `main`.
 - **Delete merged branches** at each merge/close-out: stale branches hide unmerged work. Delete by explicit name, never piped lists.
