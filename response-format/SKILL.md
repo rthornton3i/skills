@@ -1,6 +1,6 @@
 ---
 name: response-format
-description: How replies, progress updates, questions and end-of-task summaries should be written: terse, caveman levels 0-3 (default set by user, else 1), Results / Questions / New issues summary, structured question prompts, test reporting, usage-limit and compaction rules. Use at start of work and whenever writing a reply, summary or question.
+description: How replies, progress updates, questions and end-of-task summaries should be written: terse, caveman levels 0-3 (default 3), Results / Questions / New issues summary, structured question prompts, test reporting, usage-limit and compaction rules. Use at start of work and whenever writing a reply, summary or question.
 ---
 
 # Response format
@@ -23,7 +23,7 @@ Portable: copy to the tool's user-level skills/instructions folder to make globa
 
 ## Caveman levels
 
-Cut words carrying no information. Applies to every reply/summary until user changes ("caveman 0"-"caveman 3"). **Default: user's choice; unset = 1.** Never cut a needed question, failure or decision.
+Cut words carrying no information. Applies to every reply/summary until user changes ("caveman 0"-"caveman 3"). **Default: 3 (user set 2026-10-26).** Never cut a needed question, failure or decision.
 
 - **0 normal**: full sentences, light trim.
 - **1 tight**: no preamble, filler, hedging, restating, "I will now"; short sentences; keep helpful articles; one idea per line.
